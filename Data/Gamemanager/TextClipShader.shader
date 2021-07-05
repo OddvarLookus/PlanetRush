@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 //render_mode blend_mix;
+uniform vec4 color : hint_color;
 
 void fragment()
 {
@@ -15,5 +16,5 @@ void fragment()
 		pix_col.a = 0f;
 	}
 	
-	COLOR = pix_col;
+	COLOR = pix_col * color;
 }

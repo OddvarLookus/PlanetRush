@@ -13,10 +13,26 @@ export(FadeTypes) var fade_type
 export(float, 0.1, 100) var time_before_fade
 export(float, 0.001, 5) var fade_time
 
+#VARIABLES FOR SPAWN------------------------------------------------------------
+enum SpawnModes{LATERAL = 0, TOP = 1, BOTTOM = 2, OMNIDIRECTIONAL = 3}
+export (SpawnModes) var spawn_mode
+export (float) var min_height
+export (float) var max_height
+export (float) var min_distance
+export (float) var max_distance
+#-------------------------------------------------------------------------------
+export (bool) var rotation_follows_velocity
+
+
 var player : Player
 var prev_velocity : Vector2
 
 func _ready() -> void:
+	_custom_ready()
+	
+	pass
+
+func _custom_ready():
 	self.connect("body_entered", self, "on_rb_collision")
 	
 	if(fade_type == FadeTypes.TIME):
@@ -29,15 +45,16 @@ func _ready() -> void:
 		timer.connect("timeout", self, "fade")
 		
 	
-	pass
 
 func _physics_process(delta: float) -> void:
+	_custom_physics_process(delta)
+
+func _custom_physics_process(delta: float) -> void:
 	prev_velocity = linear_velocity
 
-
 func set_player_ref(plr : Player):
+	player = plr
 	if(fade_type == FadeTypes.DISTANCE):
-		player = plr
 		var destroy_timer : Timer = Timer.new()
 		add_child(destroy_timer)
 		destroy_timer.wait_time = time_before_fade
@@ -46,7 +63,47 @@ func set_player_ref(plr : Player):
 		
 	pass
 
+func start():
+	randomize()
+	match spawn_mode:
+		SpawnModes.LATERAL:
+			var spawn_left : bool = rand_range(0.0,1.0) > 0.5
+			
+			var pos_x : float = rand_range(min_distance, max_distance)
+			var pos_y : float = rand_range(player.global_position.y - min_height, player.global_position.y - max_height)
+			
+			if(spawn_left):
+				global_position = Vector2(72.0 - pos_x, pos_y)
+				pass
+			elif(!spawn_left):
+				global_position = Vector2(72.0 + pos_x, pos_y)
+				pass
+			
+			pass
+		SpawnModes.TOP:
+			var pos_x : float = rand_range(0.0, 144.0)
+			var pos_y : float = rand_range(player.global_position.y - min_height, player.global_position.y - max_height)
+			global_position = Vector2(pos_x, pos_y)
+			
+			pass
+		SpawnModes.BOTTOM:
+			var pos_x : float = rand_range(0.0, 144.0)
+			var pos_y : float = rand_range(player.global_position.y + max_height, player.global_position.y + min_height)
+			global_position = Vector2(pos_x, pos_y)
+			
+			pass
+		SpawnModes.OMNIDIRECTIONAL:
+			var dist : float = rand_range(min_distance, max_distance)
+			var base_vec : Vector2 = Vector2(rand_range(-1,1), rand_range(-1,1))
+			base_vec = base_vec.normalized()
+			base_vec *= dist
+			global_position = player.global_position + base_vec
+			
+			pass
+	
+	pass
 
+#generic implementation for shattering. can be overridden
 func shatter():
 	randomize()
 	for i in range(number_of_fragments + rand_range(0,3)):
@@ -107,4 +164,17 @@ func on_rb_collision(body : Node):
 				if(relative_speed >= speed_for_shatter):
 					shatter()
 				
+	pass
+
+func _integrate_forces(state: Physics2DDirectBodyState) -> void:
+	rotate_to_velocity(state)
+	
+	pass
+
+#basic implementation for rotating to velocity. code can be changed by override
+func rotate_to_velocity(state: Physics2DDirectBodyState):
+	if(rotation_follows_velocity):
+		var rot := state.linear_velocity.angle()
+		state.transform = Transform2D(rot, global_position)
+	
 	pass

@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Data/Hazards/alienbird/alien_bird.gd" type="Script" id=1]
+[ext_resource path="res://Data/Hazards/alienbird/AlienBird fr1.png" type="Texture" id=2]
+[ext_resource path="res://Data/Hazards/alienbird/AlienBird fr2.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "alienbird flap"
+length = 0.333333
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0666667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ]
+}
+
+[node name="alien_bird" type="RigidBody2D"]
+position = Vector2( 30, 11 )
+mass = 0.3
+gravity_scale = 0.2
+script = ExtResource( 1 )
+shatter_on_impact = true
+damage = 1
+fade_type = 1
+fade_time = 1.0
+min_height = -30.0
+max_height = 145.0
+min_distance = 80.0
+max_distance = 160.0
+rotation_follows_velocity = true
+min_horizontal_speed = 30.0
+max_horizontal_speed = 100.0
+velocity_trajectory_error = 27.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/alienbird flap" = SubResource( 2 )

@@ -1,7 +1,7 @@
 extends Node
 class_name HazardSpawner
 
-export (PackedScene) var asteroid
+export (PackedScene) var hazard_to_spawn
 export (NodePath) var player_path
 export (float, 256, 1000) var max_vertical_spawn_dist
 
@@ -23,21 +23,23 @@ func _ready() -> void:
 
 func start_spawning():
 	spawn_timer.start()
-	
-	
-	pass
 
 func stop_spawning():
 	
 	pass
 
+func spawn():
+	randomize()
+	var hazard : Hazard = hazard_to_spawn.instance()
+	hazard.set_player_ref(player)
+	hazard_container.add_child(hazard)
+	hazard.start()
+	#hazard.position = Vector2(rand_range(0,144), player.position.y - rand_range(260, max_vertical_spawn_dist))
+	
 
 
 func _on_spawn_timer_timeout() -> void:
-	randomize()
-	var hazard : Hazard = asteroid.instance()
-	hazard.set_player_ref(player)
-	hazard_container.add_child(hazard)
-	hazard.position = Vector2(rand_range(0,144), player.position.y - rand_range(260, max_vertical_spawn_dist))
+	spawn()
 	
-	pass # Replace with function body.
+	pass
+

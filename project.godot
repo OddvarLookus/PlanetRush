@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Hazard",
+"class": "AlienBird",
+"language": "GDScript",
+"path": "res://Data/Hazards/alienbird/alien_bird.gd"
+}, {
 "base": "Node",
 "class": "GameManager",
 "language": "GDScript",
@@ -30,6 +35,7 @@ _global_script_classes=[ {
 "path": "res://Data/Player/player.gd"
 } ]
 _global_script_class_icons={
+"AlienBird": "",
 "GameManager": "",
 "Hazard": "",
 "HazardSpawner": "",

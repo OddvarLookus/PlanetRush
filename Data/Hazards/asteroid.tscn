@@ -27,6 +27,9 @@ damage = 1
 fade_type = 1
 time_before_fade = 5.0
 fade_time = 0.6
+spawn_mode = 1
+min_height = 160.0
+max_height = 350.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

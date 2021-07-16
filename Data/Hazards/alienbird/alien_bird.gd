@@ -40,6 +40,7 @@ func start():
 		
 		#initialize the flap timer
 		flap_timer = Timer.new()
+		add_child(flap_timer)
 		flap_timer.one_shot = true
 		flap_timer.wait_time = flap_interval
 		flap_timer.start()
@@ -52,16 +53,22 @@ func _custom_physics_process(delta : float) -> void:
 	check_flap()
 
 func check_flap():
-	if(linear_velocity.y > 5):
+	if(linear_velocity.y >= 0):
 		if(flap_timer.time_left <= 0.0):
 			flap()
 
 func flap():
+	randomize()
 	flap_timer.start()
 	anim.play("alienbird flap")
 	
+	if(abs(linear_velocity.x) > 40):#has velocity on x axis
+		apply_central_impulse(Vector2(0, -1) * rand_range(min_flap_power, max_flap_power))
+	else:#no velocity on x axis
+		var frc : Vector2 = Vector2(rand_range(-1,1), rand_range(-1,0)).normalized()
+		frc *= rand_range(min_flap_power, max_flap_power)
+		apply_central_impulse(frc)
 	
-	pass
 
 func rotate_to_velocity(state : Physics2DDirectBodyState):
 	if(rotation_follows_velocity):

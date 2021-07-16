@@ -27,6 +27,9 @@ export (bool) var rotation_follows_velocity
 var player : Player
 var prev_velocity : Vector2
 
+export (int) var start_spawn_height : int
+export (int) var end_spawn_height : int
+
 func _ready() -> void:
 	_custom_ready()
 	

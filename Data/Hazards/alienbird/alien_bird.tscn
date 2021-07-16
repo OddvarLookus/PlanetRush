@@ -41,6 +41,9 @@ rotation_follows_velocity = true
 min_horizontal_speed = 30.0
 max_horizontal_speed = 100.0
 velocity_trajectory_error = 27.0
+min_flap_power = 12.0
+max_flap_power = 28.0
+flap_interval = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )

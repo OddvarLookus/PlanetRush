@@ -66,7 +66,7 @@ score_label_path = NodePath("../UI/MainPanel/ScoreLabel")
 
 [node name="HazardsSpawner" type="Node" parent="."]
 script = ExtResource( 5 )
-hazard_to_spawn = ExtResource( 6 )
+hazards_to_spawn = [ ExtResource( 6 ) ]
 player_path = NodePath("../Player")
 max_vertical_spawn_dist = 600.0
 

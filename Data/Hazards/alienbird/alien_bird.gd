@@ -82,7 +82,7 @@ func rotate_to_velocity(state : Physics2DDirectBodyState):
 						bird_sprite.flip_h = false
 					
 					var rot : float = state.linear_velocity.angle()
-					var real_rot : float = lerp(rotation, rot, 0.4)
+					var real_rot : float = lerp(rotation, rot, state.step)
 					state.transform = Transform2D(rot, global_position)
 					
 				elif(state.linear_velocity.x < 0):
@@ -91,7 +91,7 @@ func rotate_to_velocity(state : Physics2DDirectBodyState):
 					
 					var rot : float = state.linear_velocity.angle()
 					rot -= PI
-					var real_rot : float = lerp(rotation, rot, 0.4)
+					var real_rot : float = lerp(rotation, rot, state.step)
 					state.transform = Transform2D(rot, global_position)
 					
 			

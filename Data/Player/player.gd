@@ -12,9 +12,8 @@ onready var game_manager : GameManager = get_node(game_manager_path) as GameMana
 
 onready var booster_particles : CPUParticles2D = $CPUParticles2D as CPUParticles2D
 
-var in_atmosphere : bool = false
+
 var prev_velocity : Vector2
-signal into_atmosphere
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,16 +22,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	check_if_in_atmosphere()
+	
 	
 	pass
 
-func check_if_in_atmosphere():
-	if(not in_atmosphere and game_manager.get_score() > 20):
-		in_atmosphere = true
-		emit_signal("into_atmosphere")
-		print("signal emitted")
-	
 
 func _physics_process(delta: float) -> void:
 	take_input(delta)

@@ -94,10 +94,19 @@ func rotate_to_velocity(state : Physics2DDirectBodyState):
 					var real_rot : float = lerp(rotation, rot, state.step)
 					state.transform = Transform2D(rot, global_position)
 					
-			
-			
+				
 			
 		
 	
+
+
+func shatter():
+	
+	var feathers : CPUParticles2D = shatter_fragment.instance()
+	get_parent().add_child(feathers)
+	feathers.global_position = global_position
+	queue_free()
+	
+	pass
 
 

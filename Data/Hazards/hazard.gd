@@ -20,6 +20,13 @@ export (float) var min_height
 export (float) var max_height
 export (float) var min_distance
 export (float) var max_distance
+
+export (float) var min_time_between_spawn
+export (float) var max_time_between_spawn
+
+func get_time_between_spawn() -> float:
+	randomize()
+	return rand_range(min_time_between_spawn, max_time_between_spawn)
 #-------------------------------------------------------------------------------
 export (bool) var rotation_follows_velocity
 
@@ -29,6 +36,7 @@ var prev_velocity : Vector2
 
 export (int) var start_spawn_height : int
 export (int) var end_spawn_height : int
+
 
 func _ready() -> void:
 	_custom_ready()
@@ -115,9 +123,9 @@ func shatter():
 		
 		fragment.global_position = global_position + Vector2(rand_range(-15,15), rand_range(-15,15))
 		fragment.apply_central_impulse(Vector2(rand_range(-100,100), rand_range(-250,-100)))
-		queue_free()
 		
-	
+		
+	queue_free()
 	pass
 
 func fade():
@@ -167,7 +175,17 @@ func on_rb_collision(body : Node):
 				if(relative_speed >= speed_for_shatter):
 					shatter()
 				
+	else:#not shatter on impact
+		
+		if(body is RigidBody2D):
+			if(body.is_in_group("player")):
+				var plr : Player = body
+				plr.take_damage(damage)
+			pass
+		
+		pass
 	pass
+
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	rotate_to_velocity(state)

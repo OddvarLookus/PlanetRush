@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Data/Player/rocket sprite 1.png" type="Texture" id=1]
 [ext_resource path="res://Data/floor/floor sprite.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Data/BG/Camera.gd" type="Script" id=13]
 [ext_resource path="res://Data/BG/palette_sky.png" type="Texture" id=14]
 [ext_resource path="res://Data/BG/BackgroundShader.shader" type="Shader" id=15]
+[ext_resource path="res://Data/Hazards/asteroid.tscn" type="PackedScene" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 14
@@ -66,11 +67,13 @@ score_label_path = NodePath("../UI/MainPanel/ScoreLabel")
 
 [node name="HazardsSpawner" type="Node" parent="."]
 script = ExtResource( 5 )
-hazards_to_spawn = [ ExtResource( 6 ) ]
+hazards_to_spawn = [ ExtResource( 6 ), ExtResource( 16 ) ]
 player_path = NodePath("../Player")
-max_vertical_spawn_dist = 600.0
+game_manager_path = NodePath("../GameManager")
 
-[node name="spawn timer" type="Timer" parent="HazardsSpawner"]
+[node name="check timers timer" type="Timer" parent="HazardsSpawner"]
+wait_time = 0.5
+autostart = true
 
 [node name="hazards container" type="Node" parent="HazardsSpawner"]
 
@@ -190,4 +193,4 @@ region_rect = Rect2( 0, 0, 180, 16 )
 position = Vector2( -2, 1 )
 shape = SubResource( 10 )
 
-[connection signal="timeout" from="HazardsSpawner/spawn timer" to="HazardsSpawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="HazardsSpawner/check timers timer" to="HazardsSpawner" method="check_timers"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Data/Hazards/alienbird/alien_bird.gd" type="Script" id=1]
 [ext_resource path="res://Data/Hazards/alienbird/AlienBird fr1.png" type="Texture" id=2]
 [ext_resource path="res://Data/Hazards/alienbird/AlienBird fr2.png" type="Texture" id=3]
+[ext_resource path="res://Data/Hazards/alienbird/Alienbird feathers.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 2 )
@@ -26,18 +27,30 @@ tracks/0/keys = {
 
 [node name="alien_bird" type="RigidBody2D"]
 position = Vector2( 30, 11 )
+collision_layer = 4
+collision_mask = 7
 mass = 0.3
 gravity_scale = 0.2
+contacts_reported = 4
+contact_monitor = true
 script = ExtResource( 1 )
 shatter_on_impact = true
+number_of_fragments = 1
+shatter_fragment = ExtResource( 4 )
+speed_for_shatter = 5.0
 damage = 1
 fade_type = 1
+time_before_fade = 0.1
 fade_time = 1.0
 min_height = -30.0
 max_height = 145.0
 min_distance = 80.0
 max_distance = 160.0
+min_time_between_spawn = 0.5
+max_time_between_spawn = 1.5
 rotation_follows_velocity = true
+start_spawn_height = 20
+end_spawn_height = 200
 min_horizontal_speed = 30.0
 max_horizontal_speed = 100.0
 velocity_trajectory_error = 27.0

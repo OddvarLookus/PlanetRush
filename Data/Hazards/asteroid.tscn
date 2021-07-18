@@ -22,7 +22,7 @@ script = ExtResource( 2 )
 shatter_on_impact = true
 number_of_fragments = 3
 shatter_fragment = ExtResource( 3 )
-speed_for_shatter = 250.0
+speed_for_shatter = 150.0
 damage = 1
 fade_type = 1
 time_before_fade = 5.0
@@ -30,6 +30,10 @@ fade_time = 0.6
 spawn_mode = 1
 min_height = 160.0
 max_height = 350.0
+min_time_between_spawn = 0.5
+max_time_between_spawn = 2.0
+start_spawn_height = 100
+end_spawn_height = 1000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

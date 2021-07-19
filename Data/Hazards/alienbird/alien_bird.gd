@@ -8,6 +8,8 @@ export (float) var min_flap_power
 export (float) var max_flap_power
 export (float) var flap_interval
 
+export (Texture) var bird_downward_tex
+
 onready var bird_sprite := $Sprite
 onready var anim := $AnimationPlayer
 
@@ -45,12 +47,24 @@ func start():
 		flap_timer.wait_time = flap_interval
 		flap_timer.start()
 		
+	if(spawn_mode == SpawnModes.TOP):
+		
+		bird_sprite.texture = bird_downward_tex
+		
+		var desired_vel : Vector2 = Vector2(rand_range(min_horizontal_speed, max_horizontal_speed), 0)
+		if(rand_range(0.0, 1.0) >= 0.5):
+			desired_vel *= -1
+		
+		apply_central_impulse(desired_vel)
+		pass
 	
 	pass
 
 func _custom_physics_process(delta : float) -> void:
 	._custom_physics_process(delta)
-	check_flap()
+	if(spawn_mode == SpawnModes.LATERAL):
+		check_flap()
+	
 
 func check_flap():
 	if(linear_velocity.y >= 0):
@@ -96,6 +110,16 @@ func rotate_to_velocity(state : Physics2DDirectBodyState):
 					
 				
 			
+		if(spawn_mode == SpawnModes.TOP):
+			
+			if(linear_velocity.x >= 0):
+				if(bird_sprite.flip_h == true):
+					bird_sprite.flip_h = false
+			elif(linear_velocity.x < 0):
+				if(bird_sprite.flip_h == false):
+					bird_sprite.flip_h = true
+			
+			pass
 		
 	
 

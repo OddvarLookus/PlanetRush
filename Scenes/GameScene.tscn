@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Data/Player/rocket sprite 1.png" type="Texture" id=1]
 [ext_resource path="res://Data/floor/floor sprite.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Data/BG/palette_sky.png" type="Texture" id=14]
 [ext_resource path="res://Data/BG/BackgroundShader.shader" type="Shader" id=15]
 [ext_resource path="res://Data/Hazards/asteroid.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Data/Hazards/alienbird/alien_bird_downward.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 14
@@ -67,7 +68,7 @@ score_label_path = NodePath("../UI/MainPanel/ScoreLabel")
 
 [node name="HazardsSpawner" type="Node" parent="."]
 script = ExtResource( 5 )
-hazards_to_spawn = [ ExtResource( 6 ), ExtResource( 16 ) ]
+hazards_to_spawn = [ ExtResource( 6 ), ExtResource( 16 ), ExtResource( 17 ) ]
 player_path = NodePath("../Player")
 game_manager_path = NodePath("../GameManager")
 

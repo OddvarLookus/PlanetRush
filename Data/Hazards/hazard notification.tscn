@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Data/Hazards/hazard_notif.png" type="Texture" id=1]
+[ext_resource path="res://Data/Hazards/hazard_notification.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "hazard_notification_anim"
+length = 1.33333
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.233333, 0.533333, 0.716667, 0.733333, 0.833333, 0.85, 1.01667, 1.03333, 1.15, 1.16667, 1.33333 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ), Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ), Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "hazard_notification_fade_anim"
+length = 0.416667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.416667 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.952941, 0.203922, 0.0823529, 1 ), Color( 0.952941, 0.203922, 0.0823529, 0 ) ]
+}
+
+[node name="hazard notification" type="Sprite"]
+modulate = Color( 0.952941, 0.203922, 0.0823529, 1 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "hazard_notification_anim"
+anims/hazard_notification_anim = SubResource( 1 )
+anims/hazard_notification_fade_anim = SubResource( 2 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

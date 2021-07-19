@@ -24,10 +24,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Data/Hazards/hazard.gd"
 }, {
+"base": "Sprite",
+"class": "HazardNotification",
+"language": "GDScript",
+"path": "res://Data/Hazards/hazard_notification.gd"
+}, {
 "base": "Node",
 "class": "HazardSpawner",
 "language": "GDScript",
 "path": "res://Data/Hazards/HazardsSpawner.gd"
+}, {
+"base": "Node",
+"class": "HazardsNotifier",
+"language": "GDScript",
+"path": "res://Data/Hazards/hazards_notifier.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Player",
@@ -38,7 +48,9 @@ _global_script_class_icons={
 "AlienBird": "",
 "GameManager": "",
 "Hazard": "",
+"HazardNotification": "",
 "HazardSpawner": "",
+"HazardsNotifier": "",
 "Player": ""
 }
 

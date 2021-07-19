@@ -7,12 +7,14 @@ var spawn_timers = []
 
 export (NodePath) var player_path
 export (NodePath) var game_manager_path
+export (NodePath) var hazards_notifier_path
 
 #export (Array, Hazard) var hazards_to_spawn
 
 onready var hazard_container : Node = $"hazards container" as Node
 onready var game_manager : GameManager = get_node(game_manager_path) as GameManager
 onready var player : Player = get_node(player_path) as Player
+onready var hazards_notifier : HazardsNotifier = get_node(hazards_notifier_path) as HazardsNotifier
 
 
 #onready var spawn_timer : Timer = $"spawn timer" as Timer
@@ -58,6 +60,7 @@ func spawn(idx : int):
 	hazard.set_player_ref(player)
 	hazard_container.add_child(hazard)
 	hazard.start()
+	hazards_notifier.add_notification(hazard)
 	
 	spawn_timers[idx].start(hazards_instances[idx].get_time_between_spawn())
 	

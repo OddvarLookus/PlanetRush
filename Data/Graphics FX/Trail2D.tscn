@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Data/Graphics FX/Trail2D.gd" type="Script" id=1]
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.19898, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.274238, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -13,9 +13,9 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 position = Vector2( -3, -3 )
 z_index = -1
 width = 3.0
-width_curve = SubResource( 3 )
+width_curve = SubResource( 1 )
 default_color = Color( 1, 1, 1, 1 )
-gradient = SubResource( 4 )
+gradient = SubResource( 2 )
 joint_mode = 2
 begin_cap_mode = 2
 script = ExtResource( 1 )

@@ -5,7 +5,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "hazard_notification_anim"
-length = 1.33333
+length = 0.883335
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -14,7 +14,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.233333, 0.533333, 0.716667, 0.733333, 0.833333, 0.85, 1.01667, 1.03333, 1.15, 1.16667, 1.33333 ),
+"times": PoolRealArray( 0, 0.133333, 0.416667, 0.533333, 0.55, 0.583333, 0.6, 0.716667, 0.733333, 0.766667, 0.783333, 0.883333 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.8, 0.8 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ), Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ), Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
@@ -39,9 +39,10 @@ tracks/0/keys = {
 
 [node name="hazard notification" type="Sprite"]
 modulate = Color( 0.952941, 0.203922, 0.0823529, 1 )
-scale = Vector2( 1e-05, 1e-05 )
+z_index = 1
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+margin = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "hazard_notification_anim"

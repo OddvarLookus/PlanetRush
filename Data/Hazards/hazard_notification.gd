@@ -12,8 +12,11 @@ onready var viewport_size : Vector2 = get_viewport_rect().size
 var can_vanish : bool = true
 
 var last_pos : Vector2
+var last_pos_offset : Vector2
 
 func _ready() -> void:
+	
+	
 	
 	pass
 
@@ -24,14 +27,19 @@ func _process(delta: float) -> void:
 func set_hazard_reference(_hazard : Node2D, _camera : Camera2D):
 	hazard = _hazard
 	camera = _camera
+	
+	
 	pass
 
 func clamp_notification_position():
 	
 	var hz_pos : Vector2
+	var cam_pos : Vector2 = camera.get_camera_position()
+	
 	if(is_instance_valid(hazard)):
 		hz_pos = hazard.global_position
 		last_pos = hz_pos
+		
 	
 	
 	if(is_in_viewport() and can_vanish):
@@ -39,14 +47,15 @@ func clamp_notification_position():
 		can_vanish = false
 		pass
 	elif(not is_in_viewport()):
-		var cam_pos = camera.get_camera_position()
 		
 		var pos_x : float = clamp(last_pos.x, cam_pos.x - viewport_size.x / 2.0 + margin, cam_pos.x + viewport_size.x / 2.0 - margin)
-		var pos_y : float = clamp(last_pos.y, cam_pos.y + viewport_size.y / 2.0 + margin, cam_pos.x - viewport_size.y / 2.0 - margin)
+		var pos_y : float = clamp(last_pos.y, cam_pos.y - viewport_size.y / 2.0 + margin, cam_pos.y + viewport_size.y / 2.0 - margin)
 		
-		global_position = Vector2(pos_x, pos_y)
+		last_pos_offset = Vector2(pos_x, pos_y) - cam_pos
 		
 		pass
+	
+	global_position = cam_pos + last_pos_offset
 	
 	pass
 

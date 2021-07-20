@@ -28,6 +28,7 @@ tracks/0/keys = {
 }
 
 [node name="alien_bird" type="RigidBody2D"]
+modulate = Color( 0.470588, 0.0627451, 0.776471, 1 )
 position = Vector2( 30, 11 )
 collision_layer = 4
 collision_mask = 7

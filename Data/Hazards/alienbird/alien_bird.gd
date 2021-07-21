@@ -20,7 +20,6 @@ func _custom_ready():
 	
 	pass
 
-
 func start():
 	.start()
 	randomize()
@@ -122,7 +121,6 @@ func rotate_to_velocity(state : Physics2DDirectBodyState):
 			pass
 		
 	
-
 
 func shatter():
 	

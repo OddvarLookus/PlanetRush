@@ -10,7 +10,7 @@ export (float) var max_speed
 export (NodePath) var game_manager_path
 onready var game_manager : GameManager = get_node(game_manager_path) as GameManager
 
-onready var booster_particles : CPUParticles2D = $CPUParticles2D as CPUParticles2D
+onready var booster_particles : CPUParticles2D = $ReactorParticles as CPUParticles2D
 
 
 var prev_velocity : Vector2

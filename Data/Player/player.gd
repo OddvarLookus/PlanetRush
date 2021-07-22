@@ -11,7 +11,8 @@ export (NodePath) var game_manager_path
 onready var game_manager : GameManager = get_node(game_manager_path) as GameManager
 
 onready var booster_particles : CPUParticles2D = $ReactorParticles as CPUParticles2D
-
+onready var ground_smoke_particles : CPUParticles2D = $GroundSmokeParticles as CPUParticles2D
+onready var smoke_raycast : RayCast2D = $SmokeRaycast as RayCast2D
 
 var prev_velocity : Vector2
 
@@ -55,12 +56,24 @@ func take_input(delta : float) -> void:
 		if(not booster_particles.emitting):
 			booster_particles.emitting = true
 		
+		if(smoke_raycast.is_colliding()):
+			ground_smoke_particles.global_position = smoke_raycast.get_collision_point()
+			
+			if(ground_smoke_particles.emitting == false):
+				ground_smoke_particles.emitting = true
+		else:
+			if(ground_smoke_particles.emitting == true):
+				ground_smoke_particles.emitting = false
+		
 	else:
 		if(booster_particles.emitting):
 			booster_particles.emitting = false
-		
+		if(ground_smoke_particles.emitting):
+			ground_smoke_particles.emitting = false
 		pass
 	
+
+
 
 func take_damage( dmg : int) -> void:
 	health -= dmg

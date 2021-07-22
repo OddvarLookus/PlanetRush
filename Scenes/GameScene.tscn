@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Data/Player/rocket sprite 1.png" type="Texture" id=1]
 [ext_resource path="res://Data/floor/floor sprite.png" type="Texture" id=2]
@@ -59,7 +59,15 @@ _data = [ Vector2( 0, 0.25 ), 0.0, 0.0, 0, 0, Vector2( 0.753521, 1.35 ), 0.0, 0.
 offsets = PoolRealArray( 0, 0.602978, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.156863, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="Curve" id=10]
+max_value = 4.0
+_data = [ Vector2( 0, 0.672727 ), 0.0, 0.0, 0, 0, Vector2( 1, 1.72727 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0, 0.160665, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.490196, 1, 1, 1, 0.490196, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 137, 8 )
 
 [node name="GameScene" type="Node"]
@@ -195,6 +203,28 @@ scale_amount_curve = SubResource( 8 )
 color_ramp = SubResource( 9 )
 
 [node name="SmokeRaycast" type="RayCast2D" parent="Player"]
+enabled = true
+cast_to = Vector2( 0, 80 )
+
+[node name="GroundSmokeParticles" type="CPUParticles2D" parent="Player"]
+z_index = 1
+emitting = false
+amount = 80
+lifetime = 3.0
+explosiveness = 0.01
+lifetime_randomness = 0.4
+local_coords = false
+texture = ExtResource( 8 )
+emission_shape = 2
+emission_rect_extents = Vector2( 20, 2 )
+direction = Vector2( 0, -1 )
+spread = 93.17
+gravity = Vector2( 0, -10 )
+initial_velocity = 15.0
+initial_velocity_random = 0.5
+damping = 2.0
+scale_amount_curve = SubResource( 10 )
+color_ramp = SubResource( 11 )
 
 [node name="floor" type="StaticBody2D" parent="."]
 modulate = Color( 0.6, 0.564706, 0.317647, 1 )
@@ -209,6 +239,6 @@ region_rect = Rect2( 0, 0, 180, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
 position = Vector2( -2, 1 )
-shape = SubResource( 10 )
+shape = SubResource( 12 )
 
 [connection signal="timeout" from="HazardsSpawner/check timers timer" to="HazardsSpawner" method="check_timers"]

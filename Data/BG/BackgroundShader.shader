@@ -9,7 +9,7 @@ uniform float window_height;
 void fragment()
 {
 	
-	float cam_height = -worldPos.y - 256.0/2.0;
+	float cam_height = -worldPos.y + 256.0/2.0;
 	//vec4 col = vec4(cam_height / 1000.0, 0, 0, 1);
 	
 	float normalized_height = cam_height / max_height;

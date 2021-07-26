@@ -70,29 +70,49 @@ colors = PoolColorArray( 1, 1, 1, 0.490196, 1, 1, 1, 0.490196, 1, 1, 1, 0 )
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 137, 8 )
 
-[sub_resource type="Shader" id=13]
+[sub_resource type="Shader" id=15]
 code = "shader_type canvas_item;
 
-uniform float resolution;
+uniform float resolution = 50.0;
 
-float random (vec2 st)
+
+float random2d (vec2 st) 
 {
-    return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
+float noise(vec2 st)
+{
+	vec2 i = floor(st);
+	vec2 f = fract(st);
+	
+	//4 corners. takes the integer part to get the tile
+	float a = random2d(i);
+	float b = random2d(i + vec2(1.0, 0.0));
+	float c = random2d(i + vec2(0.0, 1.0));
+	float d = random2d(i + vec2(1.0, 1.0));
+	
+	vec2 t = smoothstep(0.0, 1.0, f);
+	
+	return mix(a, b, t.x) + (c - a)* t.y * (1.0 - t.x) + (d - b) * t.x * t.y;
+	
+	
 }
 
 void fragment()
 {
-	vec2 st = UV * resolution;
-	vec2 ipos = floor(st);
+	vec2 realCoord = UV * resolution;
+	vec2 pos = realCoord;
 	
-	float rnd = random(ipos);
+	float col = noise(pos);
+	COLOR = vec4(vec3(col), 1.0);
+	//COLOR = vec4(floor(realCoord).x / resolution, floor(realCoord.y) / resolution, 0.0f, 1.0f);
 	
-	COLOR = vec4(rnd, rnd, rnd, 1.0);
 }"
 
 [sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 13 )
-shader_param/resolution = 50.0
+shader = SubResource( 15 )
+shader_param/resolution = 8.0
 
 [node name="Game0" type="Node"]
 

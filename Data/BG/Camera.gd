@@ -14,5 +14,6 @@ func _process(delta):
 	global_position = Vector2(144/2 - 1, player.global_position.y)
 	
 	global_position.y = min(282/2 - 1, global_position.y)
+	global_position.y = floor(global_position.y)
 	
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Data/BG/BackgroundShader.shader" type="Shader" id=1]
 [ext_resource path="res://Data/fonts/Uni Sans Heavy.otf" type="DynamicFontData" id=2]
@@ -69,23 +69,6 @@ colors = PoolColorArray( 0.566406, 0.552751, 0.216827, 0.490196, 0.979392, 0.980
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 137, 8 )
-
-[sub_resource type="Shader" id=15]
-code = "shader_type canvas_item;
-
-
-
-
-
-void fragment()
-{
-	
-}
-
-"
-
-[sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 15 )
 
 [node name="Game0" type="Node"]
 
@@ -257,11 +240,5 @@ region_rect = Rect2( 0, 0, 180, 16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
 position = Vector2( -2, 1 )
 shape = SubResource( 12 )
-
-[node name="noise spr" type="Sprite" parent="."]
-material = SubResource( 14 )
-position = Vector2( 74, 130 )
-scale = Vector2( 50, 50 )
-texture = ExtResource( 15 )
 
 [connection signal="timeout" from="HazardsSpawner/check timers timer" to="HazardsSpawner" method="check_timers"]

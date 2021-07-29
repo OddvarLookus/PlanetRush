@@ -1,16 +1,16 @@
 shader_type canvas_item;
 
 uniform float noise_scale;
-
+uniform float seed;
 
 float rand2d (in vec2 pos) 
 {
-    return fract(sin(dot(pos, vec2(12.9898, 78.233))) * 43758.5453123);
+    return fract(sin(dot(pos, vec2(12.9898, 78.233))) * 4358.5453123);
 }
 
 vec2 rand2dvec2(in vec2 pos)
 {
-	return fract(sin( vec2(dot(pos, vec2(127.1, 311.7)), dot(pos, vec2(269.5, 183.3)))));
+	return fract(sin( vec2(dot(pos, vec2(127.1 * seed, 311.7 * seed)), dot(pos, vec2(269.5 * seed, 183.3 * seed)))));
 }
 
 float cellularNoise(in vec2 coord)

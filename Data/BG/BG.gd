@@ -11,7 +11,7 @@ func _ready():
 
 func _process(delta):
 	
-	(material as ShaderMaterial).set_shader_param("worldPos", global_position)
+	(material as ShaderMaterial).set_shader_param("worldPos", camera.global_position)
 	
 	pass
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Data/BG/BackgroundShader.shader" type="Shader" id=1]
 [ext_resource path="res://Data/fonts/Uni Sans Heavy.otf" type="DynamicFontData" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Data/BG/NoiseTextures/noiseTex0.png" type="Texture" id=22]
 [ext_resource path="res://Data/BG/cloudShader01.shader" type="Shader" id=23]
 [ext_resource path="res://Data/BG/NoiseTextures/noiseTex2.png" type="Texture" id=24]
+[ext_resource path="res://Data/BG/NoiseTextures/noiseTex4.png" type="Texture" id=25]
 
 [sub_resource type="DynamicFont" id=1]
 size = 14
@@ -178,6 +179,23 @@ shader_param/octaveContribution = 0.365
 shader_param/color = Color( 0.803922, 0.839216, 0.858824, 1 )
 shader_param/noisetex = ExtResource( 24 )
 
+[sub_resource type="ShaderMaterial" id=24]
+shader = ExtResource( 23 )
+shader_param/cutAlphaHeight = 0.185
+shader_param/minAlpha = 0.0
+shader_param/maxAlpha = 0.7
+shader_param/cutAlphaStrength = 3.187
+shader_param/AlphaCenterMultiplier = 2.063
+shader_param/scale = 1.722
+shader_param/direction = Vector2( 0.084, 1.809 )
+shader_param/speed = 0.02
+shader_param/octaveDirection = Vector2( 0.298, -0.703 )
+shader_param/octaveScale = 3.667
+shader_param/octaveSpeed = 0.067
+shader_param/octaveContribution = 0.365
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/noisetex = ExtResource( 25 )
+
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 23 )
 shader_param/cutAlphaHeight = 0.23
@@ -227,6 +245,40 @@ shader_param/octaveScale = 4.42
 shader_param/octaveSpeed = 0.07
 shader_param/octaveContribution = 0.333
 shader_param/color = Color( 0.0705882, 0.0745098, 0.0941176, 1 )
+shader_param/noisetex = ExtResource( 22 )
+
+[sub_resource type="ShaderMaterial" id=26]
+shader = ExtResource( 23 )
+shader_param/cutAlphaHeight = 0.185
+shader_param/minAlpha = 0.0
+shader_param/maxAlpha = 0.7
+shader_param/cutAlphaStrength = 4.49
+shader_param/AlphaCenterMultiplier = 1.52
+shader_param/scale = 2.681
+shader_param/direction = Vector2( 0.831, -1.06 )
+shader_param/speed = 0.023
+shader_param/octaveDirection = Vector2( 1.766, 1.165 )
+shader_param/octaveScale = 3.26
+shader_param/octaveSpeed = 0.059
+shader_param/octaveContribution = 0.5
+shader_param/color = Color( 0.168627, 0.168627, 0.192157, 1 )
+shader_param/noisetex = ExtResource( 22 )
+
+[sub_resource type="ShaderMaterial" id=25]
+shader = ExtResource( 23 )
+shader_param/cutAlphaHeight = 0.055
+shader_param/minAlpha = 0.0
+shader_param/maxAlpha = 0.49
+shader_param/cutAlphaStrength = 0.844
+shader_param/AlphaCenterMultiplier = 0.646
+shader_param/scale = 3.735
+shader_param/direction = Vector2( 1.199, -0.453 )
+shader_param/speed = 0.028
+shader_param/octaveDirection = Vector2( -0.658, 1.464 )
+shader_param/octaveScale = 9.957
+shader_param/octaveSpeed = 0.074
+shader_param/octaveContribution = 0.5
+shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/noisetex = ExtResource( 22 )
 
 [sub_resource type="PhysicsMaterial" id=4]
@@ -411,13 +463,23 @@ position = Vector2( 71, -675 )
 scale = Vector2( 144, 144 )
 texture = ExtResource( 15 )
 
+[node name="CloudsBGFW5" type="ParallaxLayer" parent="parallaxBG"]
+z_index = -8
+motion_scale = Vector2( 1, 0.2 )
+
+[node name="clouds" type="Sprite" parent="parallaxBG/CloudsBGFW5"]
+material = SubResource( 24 )
+position = Vector2( 71, -867 )
+scale = Vector2( 144, 144 )
+texture = ExtResource( 15 )
+
 [node name="CloudsBGB1" type="ParallaxLayer" parent="parallaxBG"]
 z_index = -9
 motion_scale = Vector2( 1, 0.14 )
 
 [node name="clouds2" type="Sprite" parent="parallaxBG/CloudsBGB1"]
 material = SubResource( 17 )
-position = Vector2( 71, -162 )
+position = Vector2( 71, -147 )
 scale = Vector2( 144, 144 )
 texture = ExtResource( 15 )
 
@@ -439,6 +501,26 @@ motion_scale = Vector2( 1, 0.14 )
 material = SubResource( 23 )
 position = Vector2( 71, -469 )
 scale = Vector2( 144, 144 )
+texture = ExtResource( 15 )
+
+[node name="CloudsBGB4" type="ParallaxLayer" parent="parallaxBG"]
+z_index = -9
+motion_scale = Vector2( 1, 0.14 )
+
+[node name="clouds2" type="Sprite" parent="parallaxBG/CloudsBGB4"]
+material = SubResource( 26 )
+position = Vector2( 71, -598 )
+scale = Vector2( 144, 144 )
+texture = ExtResource( 15 )
+
+[node name="CloudsBGBB1" type="ParallaxLayer" parent="parallaxBG"]
+z_index = -11
+motion_scale = Vector2( 1, 0.14 )
+
+[node name="clouds2" type="Sprite" parent="parallaxBG/CloudsBGBB1"]
+material = SubResource( 25 )
+position = Vector2( 71, -394 )
+scale = Vector2( 1200, 1200 )
 texture = ExtResource( 15 )
 
 [node name="Player" type="RigidBody2D" parent="." groups=[

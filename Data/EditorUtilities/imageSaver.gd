@@ -11,7 +11,7 @@ func save_image(_sv_im : bool):
 	if(Engine.editor_hint):
 		if(_sv_im == true):
 			
-			get_num_files("res://Data/BG/NoiseTextures/")
+			
 			var num_name : String = str(get_num_files("res://Data/BG/NoiseTextures/"))
 			var img : Image = texture.get_data()
 			
@@ -19,6 +19,7 @@ func save_image(_sv_im : bool):
 			
 			save_image_input = false
 			property_list_changed_notify()
+			
 			
 			pass
 		

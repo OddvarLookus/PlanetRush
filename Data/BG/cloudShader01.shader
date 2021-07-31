@@ -2,24 +2,24 @@ shader_type canvas_item;
 
 //uniform vec4 baseCol : hint_color;
 
-uniform float cutAlphaHeight : hint_range(0.0, 0.5);
-uniform float minAlpha : hint_range(0.0, 1.0);
-uniform float maxAlpha : hint_range(0.0, 1.0);
-uniform float cutAlphaStrength : hint_range(0.0, 10.0);
+uniform float cutAlphaHeight : hint_range(0.0, 0.5) = 0.25;
+uniform float minAlpha : hint_range(0.0, 1.0) = 0.0;
+uniform float maxAlpha : hint_range(0.0, 1.0) = 0.7;
+uniform float cutAlphaStrength : hint_range(0.0, 10.0) = 3.5;
 
-uniform float AlphaCenterMultiplier : hint_range(0.0, 4.0);
+uniform float AlphaCenterMultiplier : hint_range(0.0, 4.0) = 1.0;
 
-uniform float scale;
-uniform vec2 direction;
-uniform float speed;
+uniform float scale = 1.0;
+uniform vec2 direction = vec2(1.0, 0.0);
+uniform float speed = 0.08;
 
-uniform vec2 octaveDirection;
-uniform float octaveScale;
-uniform float octaveSpeed;
-uniform float octaveContribution : hint_range(0.0, 1.0);
+uniform vec2 octaveDirection = vec2(1.0, 0.0);
+uniform float octaveScale = 3.0;
+uniform float octaveSpeed = 0.12;
+uniform float octaveContribution : hint_range(0.0, 1.0) = 0.5;
 
 uniform sampler2D noisetex;
-uniform vec4 color : hint_color;
+uniform vec4 color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
 
 float cutAlpha(vec2 uvcoord, in float col)
 {

@@ -6,13 +6,14 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
+shader_param/pixelateFactor = 62.328
 shader_param/quantize = true
-shader_param/quantizeFactor = 18.065
+shader_param/quantizeFactor = 15.79
 shader_param/quantizePow = 0.94
-shader_param/cutAlphaHeight = 0.24
+shader_param/cutAlphaHeight = 0.261
 shader_param/minAlpha = 0.0
 shader_param/maxAlpha = 0.577
-shader_param/cutAlphaStrength = 2.083
+shader_param/cutAlphaStrength = 2.363
 shader_param/AlphaCenterMultiplier = 2.339
 shader_param/scale = 1.579
 shader_param/direction = Vector2( 1, 1.122 )

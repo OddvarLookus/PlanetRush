@@ -2,6 +2,8 @@ shader_type canvas_item;
 
 //uniform vec4 baseCol : hint_color;
 
+uniform float pixelateFactor = 62.0;
+
 uniform bool quantize = true;
 uniform float quantizeFactor = 18.06;
 uniform float quantizePow = 0.94;
@@ -56,8 +58,10 @@ void fragment()
 	vec2 octaveDir = normalize(octaveDirection);
 	octaveDir = octaveDir * TIME * octaveSpeed;
 	
-	float c1 = texture(noisetex, (UV * scale) + dir).r;
-	float c2 = texture(noisetex, (UV * octaveScale) + octaveDir).r;
+	vec2 realCoord = floor(UV * pixelateFactor) / pixelateFactor;
+	
+	float c1 = texture(noisetex, (realCoord * scale) + dir).r;
+	float c2 = texture(noisetex, (realCoord * octaveScale) + octaveDir).r;
 	float compositeCol = mix(c1, c2, octaveContribution);
 	
 	float alpha = cutAlpha(UV, compositeCol);

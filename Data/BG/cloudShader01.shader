@@ -2,6 +2,10 @@ shader_type canvas_item;
 
 //uniform vec4 baseCol : hint_color;
 
+uniform bool quantize = true;
+uniform float quantizeFactor = 18.06;
+uniform float quantizePow = 0.94;
+
 uniform float cutAlphaHeight : hint_range(0.0, 0.5) = 0.25;
 uniform float minAlpha : hint_range(0.0, 1.0) = 0.0;
 uniform float maxAlpha : hint_range(0.0, 1.0) = 0.7;
@@ -63,5 +67,14 @@ void fragment()
 	finalCol.a = cutAlphaCenter(finalCol.r, finalCol.a);
 	
 	finalCol.rgb = mix(finalCol.rgb , color.rgb, 0.5);
+	
+	if(quantize)
+	{
+		finalCol = clamp(finalCol, vec4(0.0), vec4(1.0));
+		finalCol = pow(finalCol, vec4(quantizePow));
+		finalCol = round(finalCol * quantizeFactor) / quantizeFactor;
+		finalCol = pow(finalCol, vec4(1.0/quantizePow));
+	}
+	
 	COLOR = finalCol;
 }

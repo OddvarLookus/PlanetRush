@@ -188,10 +188,15 @@ cloudsBG = ExtResource( 27 )
 noise_textures = [ ExtResource( 22 ), ExtResource( 24 ), ExtResource( 25 ) ]
 cloudsShader = ExtResource( 23 )
 num_clouds_BGFW = 30
+num_clouds_BGB = 30
 clouds_BGFW_minCol = Color( 0.564706, 0.6, 0.603922, 1 )
 clouds_BGFW_maxCol = Color( 0.929412, 0.94902, 0.94902, 1 )
 clouds_BGFW_minH = 100.0
-clouds_BGFW_maxH = 300.0
+clouds_BGFW_maxH = 234.0
+clouds_BGB_minCol = Color( 0.227451, 0.231373, 0.262745, 1 )
+clouds_BGB_maxCol = Color( 0.0666667, 0.0666667, 0.0784314, 1 )
+clouds_BGB_minH = 126.0
+clouds_BGB_maxH = 266.0
 
 [node name="Player" type="RigidBody2D" parent="." groups=[
 "player",

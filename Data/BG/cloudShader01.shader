@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 //uniform vec4 baseCol : hint_color;
 
-uniform float pixelateFactor = 62.0;
+uniform float pixelateFactor = 100.0;
 
 uniform bool quantize = true;
 uniform float quantizeFactor = 18.06;
@@ -27,6 +27,10 @@ uniform float octaveContribution : hint_range(0.0, 1.0) = 0.5;
 uniform sampler2D noisetex;
 uniform vec4 color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
 
+uniform float shapeVal = 1.0;
+uniform float latSpeed = 1.0;
+
+
 float cutAlpha(vec2 uvcoord, in float col)
 {
 	float c = col;
@@ -50,6 +54,13 @@ float cutAlphaCenter(in float rChannel, in float aChannel)
 	return alpha;
 }
 
+float calculateCloudFalloff(vec2 _center, vec2 _coord)
+{
+	float dist = distance(_coord, _center);
+	float falloff = dist * shapeVal;
+	falloff = clamp(falloff, 0.0, 1.0);
+	return pow((1.0 - falloff), 3.4);
+}
 
 void fragment()
 {
@@ -58,7 +69,7 @@ void fragment()
 	vec2 octaveDir = normalize(octaveDirection);
 	octaveDir = octaveDir * TIME * octaveSpeed;
 	
-	vec2 realCoord = floor(UV * pixelateFactor) / pixelateFactor;
+	vec2 realCoord = round(UV * pixelateFactor) / pixelateFactor;
 	
 	float c1 = texture(noisetex, (realCoord * scale) + dir).r;
 	float c2 = texture(noisetex, (realCoord * octaveScale) + octaveDir).r;
@@ -70,6 +81,10 @@ void fragment()
 	vec4 finalCol = vec4(compositeCol, compositeCol, compositeCol, alpha);
 	finalCol.a = cutAlphaCenter(finalCol.r, finalCol.a);
 	
+	
+	
+	
+	
 	finalCol.rgb = mix(finalCol.rgb , color.rgb, 0.5);
 	
 	if(quantize)
@@ -79,6 +94,13 @@ void fragment()
 		finalCol = round(finalCol * quantizeFactor) / quantizeFactor;
 		finalCol = pow(finalCol, vec4(1.0/quantizePow));
 	}
+	
+	vec2 offset = vec2(TIME * latSpeed, 0.0);
+	vec2 cloudCenter = mod(vec2(0.5, 0.5) + offset, vec2(1.0, 1.0));
+	vec2 cloudCenter2 = cloudCenter + vec2(1.0, 0.0);
+	vec2 cloudCenter3 = cloudCenter + vec2(-1.0, 0.0);
+	float totCloudShape = calculateCloudFalloff(cloudCenter, UV) + calculateCloudFalloff(cloudCenter2, UV) + calculateCloudFalloff(cloudCenter3, UV);
+	finalCol.a = finalCol.a * totCloudShape;
 	
 	COLOR = finalCol;
 }

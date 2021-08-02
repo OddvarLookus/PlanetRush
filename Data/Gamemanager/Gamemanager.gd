@@ -3,8 +3,7 @@ class_name GameManager
 
 export (NodePath) var player_path
 onready var player = get_node(player_path)
-export (NodePath) var score_label_path
-onready var score_label : Label = get_node(score_label_path) as Label
+
 
 var start_player_pos : Vector2
 
@@ -18,13 +17,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	show_score()
 	
 	pass
 
-func show_score():
-	score_label.text = get_score() as String
-	pass
 
 func get_score() -> int:
 	var score : int = int(player.position.y - start_player_pos.y)

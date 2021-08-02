@@ -4,7 +4,8 @@ class_name Player
 export (float, 0, 1000) var acceleration
 export (float, 0, 4000) var rotation_speed
 
-export (int) var health : int
+export (int) var max_health : int
+var health : int 
 export (float) var max_speed
 
 export (NodePath) var game_manager_path
@@ -13,12 +14,16 @@ onready var game_manager : GameManager = get_node(game_manager_path) as GameMana
 onready var booster_particles : CPUParticles2D = $ReactorParticles as CPUParticles2D
 onready var ground_smoke_particles : CPUParticles2D = $GroundSmokeParticles as CPUParticles2D
 onready var smoke_raycast : RayCast2D = $SmokeRaycast as RayCast2D
+onready var player_hurt_anim_player : AnimationPlayer = $PlayerHurtAnim as AnimationPlayer
 
 var prev_velocity : Vector2
 
+signal damaged(current_health)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	health = max_health
+	
 	pass
 
 
@@ -76,7 +81,10 @@ func take_input(delta : float) -> void:
 
 
 func take_damage( dmg : int) -> void:
+	player_hurt_anim_player.play("PlayerHurt")
 	health -= dmg
+	health = clamp(health, 0, max_health)
+	emit_signal("damaged", health)
 	if(health <= 0):
 		detonate()
 	pass 

@@ -25,45 +25,45 @@
 [ext_resource path="res://Scenes/CloudsSpawner.gd" type="Script" id=26]
 [ext_resource path="res://Data/BG/Clouds/CloudsBG.tscn" type="PackedScene" id=27]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
 shader_param/worldPos = null
 shader_param/max_height = 800.0
 shader_param/window_height = 0.5
 shader_param/palette = ExtResource( 19 )
 
-[sub_resource type="PhysicsMaterial" id=4]
+[sub_resource type="PhysicsMaterial" id=2]
 friction = 0.2
 bounce = 0.1
 absorbent = true
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4, 7 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7, 1 )
 
-[sub_resource type="Curve" id=7]
+[sub_resource type="Curve" id=5]
 max_value = 1000.0
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 629.545 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=6]
 max_value = 3.0
 _data = [ Vector2( 0, 0.25 ), 0.0, 0.0, 0, 0, Vector2( 0.753521, 1.35 ), 0.0, 0.0, 0, 1, Vector2( 1, 1.35 ), 0.0, 0.0, 1, 0 ]
 
-[sub_resource type="Gradient" id=9]
+[sub_resource type="Gradient" id=7]
 offsets = PoolRealArray( 0, 0.602978, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.156863, 1, 1, 1, 0 )
 
-[sub_resource type="Curve" id=10]
+[sub_resource type="Curve" id=8]
 max_value = 4.0
 _data = [ Vector2( 0, 0.672727 ), 0.0, 0.0, 0, 0, Vector2( 1, 1.72727 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=9]
 offsets = PoolRealArray( 0, 0.645429, 1 )
 colors = PoolColorArray( 0.488281, 0.485078, 0.406265, 0.490196, 0.979392, 0.980469, 0.945999, 0.490196, 1, 1, 1, 0 )
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=10]
 resource_name = "PlayerHurt"
 length = 0.266667
 step = 0.0166667
@@ -80,26 +80,27 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.88, 0.44, 0.44, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 137, 8 )
 
-[sub_resource type="OpenSimplexNoise" id=13]
+[sub_resource type="OpenSimplexNoise" id=12]
 seed = 10
 period = 21.1
 persistence = 0.957
 lacunarity = 1.72
 
-[sub_resource type="NoiseTexture" id=14]
+[sub_resource type="NoiseTexture" id=13]
 width = 256
 height = 256
 seamless = true
-noise = SubResource( 13 )
+noise = SubResource( 12 )
 
 [node name="Game0" type="Node"]
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource( 9 )
 player_path = NodePath("../Player")
+final_height = 5000.0
 
 [node name="HazardsSpawner" type="Node" parent="."]
 script = ExtResource( 12 )
@@ -134,7 +135,7 @@ player_path = NodePath("../Player")
 layer = -2
 
 [node name="BG" type="Sprite" parent="Camera2D/SkyParallaxBG"]
-material = SubResource( 3 )
+material = SubResource( 1 )
 position = Vector2( 72, 112 )
 scale = Vector2( 144, 224 )
 z_index = -10
@@ -165,7 +166,7 @@ clouds_BGB_maxH = 266.0
 position = Vector2( 74, 231 )
 collision_layer = 2
 collision_mask = 5
-physics_material_override = SubResource( 4 )
+physics_material_override = SubResource( 2 )
 contacts_reported = 4
 contact_monitor = true
 linear_damp = 0.1
@@ -179,11 +180,11 @@ game_manager_path = NodePath("../GameManager")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( 0, 1 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Player"]
 position = Vector2( 0, 7 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Player"]
 texture = ExtResource( 8 )
@@ -198,9 +199,9 @@ direction = Vector2( 0, 1 )
 spread = 15.44
 gravity = Vector2( 0, 0 )
 initial_velocity = 81.82
-damping_curve = SubResource( 7 )
-scale_amount_curve = SubResource( 8 )
-color_ramp = SubResource( 9 )
+damping_curve = SubResource( 5 )
+scale_amount_curve = SubResource( 6 )
+color_ramp = SubResource( 7 )
 
 [node name="SmokeRaycast" type="RayCast2D" parent="Player"]
 enabled = true
@@ -223,11 +224,11 @@ gravity = Vector2( 0, -10 )
 initial_velocity = 15.0
 initial_velocity_random = 0.5
 damping = 2.0
-scale_amount_curve = SubResource( 10 )
-color_ramp = SubResource( 11 )
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
 
 [node name="PlayerHurtAnim" type="AnimationPlayer" parent="Player"]
-anims/PlayerHurt = SubResource( 15 )
+anims/PlayerHurt = SubResource( 10 )
 
 [node name="floor" type="StaticBody2D" parent="."]
 modulate = Color( 0.6, 0.564706, 0.317647, 1 )
@@ -242,13 +243,13 @@ region_rect = Rect2( 0, 0, 180, 16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
 position = Vector2( -2, 1 )
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="ImageSaver" type="Sprite" parent="."]
 visible = false
 position = Vector2( 71, 126 )
 z_index = -9
-texture = SubResource( 14 )
+texture = SubResource( 13 )
 script = ExtResource( 21 )
 
 [connection signal="timeout" from="HazardsSpawner/check timers timer" to="HazardsSpawner" method="check_timers"]

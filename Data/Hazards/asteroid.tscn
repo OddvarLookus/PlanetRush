@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Data/Hazards/pietrasmall.png" type="Texture" id=1]
 [ext_resource path="res://Data/Hazards/hazard.gd" type="Script" id=2]
 [ext_resource path="res://Data/Hazards/asteroid_fragment.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Data/Player/playerDamageParticles.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
@@ -19,6 +20,7 @@ physics_material_override = SubResource( 1 )
 contacts_reported = 4
 contact_monitor = true
 script = ExtResource( 2 )
+player_damaged_particles = ExtResource( 4 )
 shatter_on_impact = true
 number_of_fragments = 3
 shatter_fragment = ExtResource( 3 )
@@ -32,8 +34,8 @@ min_height = 160.0
 max_height = 350.0
 min_time_between_spawn = 0.5
 max_time_between_spawn = 2.0
-start_spawn_height = 100
-end_spawn_height = 1000
+start_spawn_height = 2000
+end_spawn_height = 4500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

@@ -69,7 +69,7 @@ func check_timers():
 	#this checks every spawn timer, to see if objects should be spawned or not
 	for i in range(hazards_instances.size()):
 		
-		var player_height : int = game_manager.get_score()
+		var player_height : int = game_manager.get_player_height()
 		
 		#check if the player is in between the correct heights to spawn this object
 		if(player_height >= hazards_instances[i].start_spawn_height and player_height <= hazards_instances[i].end_spawn_height):

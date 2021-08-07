@@ -111,5 +111,8 @@ func spawn_clouds() -> void:
 		
 		pass
 	
+	print("current height 1: " + str(curHeight))
+	print("current height 2: " + str(curHeight_0))
+	
 	pass
 

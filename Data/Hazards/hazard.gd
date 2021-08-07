@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name Hazard
 
+export (PackedScene) var player_damaged_particles
+
 export (bool) var shatter_on_impact
 export (int, 1, 10) var number_of_fragments
 export (PackedScene) var shatter_fragment
@@ -33,6 +35,7 @@ export (bool) var rotation_follows_velocity
 
 var player : Player
 var prev_velocity : Vector2
+var body_state : Physics2DDirectBodyState
 
 export (int) var start_spawn_height : int
 export (int) var end_spawn_height : int
@@ -169,6 +172,19 @@ func on_rb_collision(body : Node):
 					if(relative_speed >= speed_for_shatter):
 						plr.take_damage(damage)
 						shatter()
+						if (body_state.get_contact_count() >= 1):
+							var impact_pos : Vector2 = body_state.get_contact_collider_position(0)
+							var pDmg : CPUParticles2D = player_damaged_particles.instance()
+							get_parent().add_child(pDmg)
+							pDmg.global_position = impact_pos
+							
+							var normal : Vector2 = body_state.get_contact_local_normal(0)
+							var angle : float = normal.angle()
+							pDmg.rotation = angle
+							
+							pDmg.emitting = true
+							
+							pass
 			else:
 				var rb : RigidBody2D = body
 				var relative_speed : float = (prev_velocity - rb.linear_velocity).length()
@@ -188,6 +204,7 @@ func on_rb_collision(body : Node):
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
+	body_state = state
 	rotate_to_velocity(state)
 	
 	pass

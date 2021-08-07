@@ -163,7 +163,7 @@ clouds_BGB_maxH = 266.0
 [node name="Player" type="RigidBody2D" parent="." groups=[
 "player",
 ]]
-position = Vector2( 74, 229 )
+position = Vector2( 74, 231 )
 collision_layer = 2
 collision_mask = 5
 physics_material_override = SubResource( 2 )

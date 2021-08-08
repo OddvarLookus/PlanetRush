@@ -8,7 +8,7 @@
 shader = ExtResource( 3 )
 shader_param/pixelateFactor = 100.0
 shader_param/quantize = true
-shader_param/quantizeFactor = 12.606
+shader_param/quantizeFactor = 8.894
 shader_param/quantizePow = 1.581
 shader_param/cutAlphaHeight = 0.184
 shader_param/minAlpha = 0.0

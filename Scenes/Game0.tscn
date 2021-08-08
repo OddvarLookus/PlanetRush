@@ -1,6 +1,7 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Data/BG/BackgroundShader.shader" type="Shader" id=1]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_piston_1.png" type="Texture" id=2]
 [ext_resource path="res://Data/Hazards/alienbird/alien_bird_downward.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Data/Hazards/alienbird/alien_bird.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Data/Hazards/asteroid.tscn" type="PackedScene" id=5]
@@ -15,6 +16,8 @@
 [ext_resource path="res://Data/BG/Camera.gd" type="Script" id=14]
 [ext_resource path="res://Data/BG/unoperuno.png" type="Texture" id=15]
 [ext_resource path="res://Data/Player/PArticle.png" type="Texture" id=16]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_front.png" type="Texture" id=17]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_piston_top.png" type="Texture" id=18]
 [ext_resource path="res://Data/BG/palette_sky.png" type="Texture" id=19]
 [ext_resource path="res://Data/Sounds/triple danger.wav" type="AudioStream" id=20]
 [ext_resource path="res://Data/EditorUtilities/imageSaver.gd" type="Script" id=21]
@@ -24,6 +27,9 @@
 [ext_resource path="res://Data/BG/NoiseTextures/noiseTex4.png" type="Texture" id=25]
 [ext_resource path="res://Scenes/CloudsSpawner.gd" type="Script" id=26]
 [ext_resource path="res://Data/BG/Clouds/CloudsBG.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_piston_2.png" type="Texture" id=28]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_platform.png" type="Texture" id=29]
+[ext_resource path="res://Data/Structures/End game spaceship/end_game_spaceship_back.png" type="Texture" id=30]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -95,6 +101,33 @@ height = 256
 seamless = true
 noise = SubResource( 12 )
 
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 32, 24 )
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 52, 10 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 118, 19 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 20, 10 )
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 11, 28 )
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 7, 22 )
+
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 56, 3 )
+
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 50, 4 )
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 23, 16 )
+
 [node name="Game0" type="Node"]
 
 [node name="GameManager" type="Node" parent="."]
@@ -155,8 +188,8 @@ clouds_BGFW_minCol = Color( 0.564706, 0.6, 0.603922, 1 )
 clouds_BGFW_maxCol = Color( 0.929412, 0.94902, 0.94902, 1 )
 clouds_BGFW_minH = 78.0
 clouds_BGFW_maxH = 210.0
-clouds_BGB_minCol = Color( 0.227451, 0.231373, 0.262745, 1 )
-clouds_BGB_maxCol = Color( 0.0666667, 0.0666667, 0.0784314, 1 )
+clouds_BGB_minCol = Color( 0.513726, 0.541176, 0.576471, 1 )
+clouds_BGB_maxCol = Color( 0.341176, 0.341176, 0.384314, 1 )
 clouds_BGB_minH = 99.0
 clouds_BGB_maxH = 266.0
 
@@ -251,5 +284,93 @@ position = Vector2( 71, 126 )
 z_index = -9
 texture = SubResource( 13 )
 script = ExtResource( 21 )
+
+[node name="EndGameSpaceship" type="StaticBody2D" parent="."]
+position = Vector2( 79, 86 )
+
+[node name="SpaceshipFrontCollision" type="CollisionShape2D" parent="EndGameSpaceship"]
+position = Vector2( 56, -67 )
+z_index = 10
+shape = SubResource( 14 )
+
+[node name="SpaceshipFront" type="Sprite" parent="EndGameSpaceship/SpaceshipFrontCollision"]
+position = Vector2( -56, 67 )
+z_index = 6
+z_as_relative = false
+texture = ExtResource( 17 )
+
+[node name="SpaceshipBackAdditionalCollision" type="CollisionShape2D" parent="EndGameSpaceship"]
+position = Vector2( -75, -46 )
+z_index = 10
+shape = SubResource( 15 )
+
+[node name="SpaceshipBackCollision" type="CollisionShape2D" parent="EndGameSpaceship"]
+position = Vector2( -4, -71 )
+z_index = 10
+shape = SubResource( 16 )
+
+[node name="SpaceshipBack" type="Sprite" parent="EndGameSpaceship/SpaceshipBackCollision"]
+position = Vector2( 4, 71 )
+z_index = 5
+z_as_relative = false
+texture = ExtResource( 30 )
+
+[node name="SpaceshipPistonTopCollision" type="CollisionShape2D" parent="EndGameSpaceship"]
+position = Vector2( 59, -42 )
+z_index = 10
+shape = SubResource( 17 )
+
+[node name="SpaceshipPistonTop" type="Sprite" parent="EndGameSpaceship/SpaceshipPistonTopCollision"]
+position = Vector2( -59, 42 )
+z_index = 4
+z_as_relative = false
+texture = ExtResource( 18 )
+
+[node name="SpaceshipPiston1Body" type="StaticBody2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision"]
+
+[node name="SpaceshipPiston1Collision" type="CollisionShape2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body"]
+position = Vector2( -1, 26 )
+shape = SubResource( 18 )
+
+[node name="SpaceshipPiston1" type="Sprite" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body"]
+show_behind_parent = true
+position = Vector2( -59, 42 )
+z_index = 3
+z_as_relative = false
+texture = ExtResource( 2 )
+
+[node name="SpaceshipPiston2Body" type="StaticBody2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body"]
+
+[node name="SpaceshipPiston2Collision" type="CollisionShape2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body"]
+position = Vector2( -1, 70 )
+shape = SubResource( 19 )
+
+[node name="SpaceshipPiston2" type="Sprite" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body"]
+show_behind_parent = true
+position = Vector2( -59, 42 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="SpaceshipPlatformBody" type="StaticBody2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body"]
+
+[node name="SpaceshipPlatformCollision" type="CollisionShape2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body/SpaceshipPlatformBody"]
+position = Vector2( -30, 110 )
+z_index = 10
+shape = SubResource( 20 )
+
+[node name="SpaceshipPlatformCollision1" type="CollisionShape2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body/SpaceshipPlatformBody"]
+position = Vector2( -28, 103 )
+shape = SubResource( 21 )
+
+[node name="SpaceshipPlatformCollision2" type="CollisionShape2D" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body/SpaceshipPlatformBody"]
+position = Vector2( 11, 106 )
+shape = SubResource( 22 )
+
+[node name="SpaceshipPlatform" type="Sprite" parent="EndGameSpaceship/SpaceshipPistonTopCollision/SpaceshipPiston1Body/SpaceshipPiston2Body/SpaceshipPlatformBody"]
+position = Vector2( -59, 42 )
+z_index = 3
+z_as_relative = false
+texture = ExtResource( 29 )
 
 [connection signal="timeout" from="HazardsSpawner/check timers timer" to="HazardsSpawner" method="check_timers"]

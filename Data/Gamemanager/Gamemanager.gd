@@ -4,6 +4,9 @@ class_name GameManager
 export (NodePath) var player_path
 onready var player = get_node(player_path)
 
+export (NodePath) var end_game_spaceship_path
+onready var end_game_spaceship = get_node(end_game_spaceship_path)
+
 export (float) var final_height
 
 var start_player_pos : Vector2
@@ -16,10 +19,18 @@ func _ready() -> void:
 	OS.window_maximized = true
 	
 	start_player_pos = player.position
+	
+	place_end_game_spaceship()
 	pass
 
 func _process(delta: float) -> void:
 	calculate_game_time(delta)
+	
+	pass
+
+func place_end_game_spaceship():
+	var EGSpos : Vector2 = Vector2(72.0, -final_height - 176.0)
+	end_game_spaceship.global_position = EGSpos
 	
 	pass
 

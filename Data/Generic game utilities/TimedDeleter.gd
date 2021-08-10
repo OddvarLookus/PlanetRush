@@ -17,13 +17,13 @@ func _ready() -> void:
 	var t : Timer = Timer.new()
 	add_child(t)
 	t.wait_time = time_before_deletion
-	t.connect("timeout", self, "delete_self")
+	t.connect("timeout", self, "delete_node")
 	t.start()
 	
 	pass
 
-func delete_self():
-	queue_free()
+func delete_node():
+	node_to_delete.queue_free()
 	
 
 

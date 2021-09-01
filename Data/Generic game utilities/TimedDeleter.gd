@@ -2,7 +2,7 @@ extends Node
 
 
 export (float, 0.01, 10.0) var time_before_deletion
-export (NodePath) var node_to_delete_path
+export (NodePath) var node_to_delete_path = null
 
 var node_to_delete : Node
 # Called when the node enters the scene tree for the first time.

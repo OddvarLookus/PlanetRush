@@ -17,6 +17,7 @@ onready var smoke_raycast : RayCast2D = $SmokeRaycast as RayCast2D
 onready var player_hurt_anim_player : AnimationPlayer = $PlayerHurtAnim as AnimationPlayer
 
 var prev_velocity : Vector2
+var controls_enabled : bool = true
 
 signal damaged(current_health)
 
@@ -34,7 +35,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	take_input(delta)
+	
+	if(controls_enabled):
+		take_input(delta)
 	
 	prev_velocity = linear_velocity
 	pass
